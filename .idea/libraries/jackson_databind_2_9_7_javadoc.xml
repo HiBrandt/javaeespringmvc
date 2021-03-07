@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="jackson-databind-2.9.7-javadoc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/springmvc03/web/WEB-INF/lib/jackson-databind-2.9.7.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/springmvc03/web/WEB-INF/lib/jackson-databind-2.9.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/springmvc03/web/WEB-INF/lib/jackson-databind-2.9.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

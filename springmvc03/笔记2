@@ -1,0 +1,12 @@
+1.SpringMVC执行流程图文件有。图片必须看。源码以后有能力再看吧
+2.Spring和SpringMVC的整合：
+  1)不整合：需要将Spring管理的内容都交给SpringMVC去管理 就会很混乱
+  2)整合（你是你，我是我分开）：那就要讲究Spring和SpringMVC的整合时机，以及怎么整合？
+     答案是通过监听器进行整合。ContextLoaderListener 如果是过滤器就是一条请求初始化一次IOC显然不合理 所以是监听器
+     因为监听器在mvc前就执行(如果整合Spring必须在SpringMVC前面执行不然service和dao的bean在控制层就无法自动装配了)
+     可以监控SpringMVC上下文的生命周期，其实SpringMVC更多的就像是一个Controller
+3.如果整合后就会引起一个问题那就是bean被创建两次。那如何避免？
+     SpringMVC 只是scan controller包
+     Spring 扫描的时候排除 controller包
+4. Spring和SpringMVC是父与子的关系 Spring不能访问SpringMVC的bean ，而 SpringMVC可以访问Spring的bean
+5. Spring核心就是ioc 、aop 、以及jdbctemplate和事务的管理 SpringMVC就像是请求和控制层的响应

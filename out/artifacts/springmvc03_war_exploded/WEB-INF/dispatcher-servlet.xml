@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:mnv="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--只扫描控制层的包 防止和Spring扫描相同两次-->
+    <context:component-scan base-package="study03.controller"></context:component-scan>
+
+    <!--配置视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/view/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!--
+		配置Tomcat中默认的servlet，DefaultServlet
+		注意：当DefaultServlet所设置的<url-pattern>的值和开发人员所配置的servlet的<url-pattern>相同，以开发人员所配置的servlet优先
+		作用：当客户端发送请求，由于DefaultServlet所设置的<url-pattern>的值和开发人员所配置DispatcherServlet的<url-pattern>都是/
+			因此先通过DispatcherServlet处理请求，找该请求是否有相对应的处理器，有则处理，无则交给DefaultServlet处理
+		一般静态资源的请求 DispatcherServlet 是不处理的 ，所以要配置Tomcat中默认的servlet
+	 -->
+    <mvc:default-servlet-handler/>
+    <!-- mvc驱动 -->
+    <mvc:annotation-driven />
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+           <!-- 声明自定义拦截器 -->
+        <bean id="firstHandlerInterceptor" class="study03.interceptor.FirstIntercrptor"></bean>
+    </mvc:interceptors>
+    <!-- 配置SimpleMappingExceptionResolver异常解析器 -->
+    <bean id="simpleMappingExceptionResolver"
+          class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionAttribute" value="exception"></property>
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.ArrayIndexOutOfBoundsException">error</prop> <!--出现此异常跳转到error.jsp-->
+            </props>
+        </property>
+    </bean>
+</beans>
